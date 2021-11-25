@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV;
 console.log(env)
 const dev = {
     app: {
-        port: parseInt(process.env.DEV_APP_PORT) || 3000
+        port: parseInt(process.env.DEV_APP_PORT) || 8000
     },
     db: {
         host: process.env.DEV_DB_HOST || 'localhost',
@@ -13,7 +13,7 @@ const dev = {
 };
 const test = {
     app: {
-        port: parseInt(process.env.TEST_APP_PORT) || 3000
+        port: parseInt(process.env.TEST_APP_PORT) || 8000
     },
     db: {
         host: process.env.TEST_DB_HOST || 'localhost',

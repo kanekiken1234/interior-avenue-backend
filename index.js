@@ -6,9 +6,12 @@ const config = require('./config');
 const users = require('./routes/users');
 const user = require('./routes/user');
 const DbConnect = require('./database/dbConnection')
+const cors = require('cors')
 
 const { app: { port } } = config;
 
+
+app.use(cors())
 app.use(express.static("public"));
 app.use(express.json());
 app.use(helmet());
