@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 function DbConnect() {
-    mongoose.connect('mongodb://localhost:27017/InteriorAvenue', { useNewUrlParser: true });
+    mongoose.connect(process.env.DEV_DB_URL, { useNewUrlParser: true });
     var conn = mongoose.connection;
     conn.on('connected', function () {
         console.log('database is connected successfully');
