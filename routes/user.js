@@ -10,7 +10,7 @@ const usersSchema = Joi.object({
     password: Joi.string().min(8).required()
 })
 
-router.get("/signin", validate(usersSchema), async (req, res) => {
+router.post("/signin", validate(usersSchema), async (req, res) => {
     const { email, password } = req.body;
     const user = {
         email: email,
