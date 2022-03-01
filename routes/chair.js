@@ -12,7 +12,21 @@ router.get('/', async (req, res) => {
             "product_3D_model_image": chair.product_3D_model_images[0]
         }
     })
-    res.send(chairDetails);
+    res.status(200).send(chairDetails);
 })
+
+router.get('/chair', async (req, res) => {
+    const id = parseInt(req.query.id);
+    let status = 200;
+    let msg = "Success";
+    const chair = await ChairTable.findOne({ product_id: id });
+    if (!chair) {
+        status = 401;
+        msg = "Invalid Product ID";
+    }
+    msg = chair;
+    res.status(status).send(msg);
+})
+
 
 module.exports = router;
