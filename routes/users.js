@@ -6,6 +6,7 @@ const Joi = require('joi')
 const jwt = require('jsonwebtoken');
 
 const usersSchema = Joi.object({
+    name: Joi.string().required(),
     email: Joi.string().email().required(),
     phone: Joi.string().length(10).required(),
     password: Joi.string().min(8).required()
@@ -13,8 +14,9 @@ const usersSchema = Joi.object({
 
 router.post('/signup', validate(usersSchema), async (req, res) => {
     console.log("from api", req.body);
-    const { email, phone, password } = req.body
+    const { name, email, phone, password } = req.body
     const user = {
+        name: name,
         email: email,
         phone: phone,
         password: password
