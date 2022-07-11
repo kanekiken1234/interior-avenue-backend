@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+
+const cartSchema = require('./cart')
+
 let usersModelSchema = new mongoose.Schema({
     name: {
         type: String
@@ -11,7 +14,11 @@ let usersModelSchema = new mongoose.Schema({
     },
     password: {
         type: String
-    }
+    },
+    address: {
+        type: String
+    },
+    cart: [cartSchema]
 });
 
 module.exports = usersModelSchema;

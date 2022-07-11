@@ -13,13 +13,14 @@ const usersSchema = Joi.object({
 })
 
 router.post('/signup', validate(usersSchema), async (req, res) => {
-    console.log("from api", req.body);
     const { name, email, phone, password } = req.body
     const user = {
         name: name,
         email: email,
         phone: phone,
-        password: password
+        password: password,
+        address: "",
+        cart: []
     }
     const existingUser = await UserTable.findOne({ email: email })
     console.log(existingUser)
@@ -37,6 +38,7 @@ router.post('/signup', validate(usersSchema), async (req, res) => {
     const token = {
         'email': email,
         'phone': phone,
+        'name': name
     }
     const accessToken = jwt.sign(token, process.env.JWT_SIGN);
     res.status(201).send(accessToken)

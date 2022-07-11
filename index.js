@@ -12,6 +12,7 @@ const chair = require('./routes/chair');
 const table = require('./routes/table');
 const desk = require('./routes/desk');
 const sofa = require('./routes/sofa');
+const cart = require('./routes/cart')
 
 const DbConnect = require('./database/dbConnection')
 const cors = require('cors')
@@ -32,6 +33,8 @@ app.use('/api/chairs', chair);
 app.use('/api/tables', table);
 app.use('/api/desks', desk);
 app.use('/api/sofas', sofa);
+app.use('/api/cart', cart);
+
 
 app.listen(process.env.PORT, function () {
     console.log(`Server started on port ...${process.env.PORT}`);

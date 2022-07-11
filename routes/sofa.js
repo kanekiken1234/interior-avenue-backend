@@ -1,31 +1,29 @@
 const express = require('express');
 const router = express.Router();
+const Utils = require('../utils/utils')
 const SofaTable = require('../database/models/Sofa');
 
 router.get('/', async (req, res) => {
-    let sofaDetails = {};
-    const sofas = await SofaTable.find({});
-    sofas.forEach(sofa => {
-        sofaDetails[sofa.product_id] = {
-            "product_name": sofa.product_name,
-            "product_price": sofa.product_price,
-            "product_3D_model_image": sofa.product_3D_model_images[0]
-        }
-    })
-    res.status(200).send(sofaDetails);
-})
-
-router.get('/sofa', async (req, res) => {
+    let response = {}
     const id = parseInt(req.query.id);
     let status = 200;
-    let msg = "Success";
-    const sofa = await SofaTable.findOne({ product_id: id });
-    if (!sofa) {
-        status = 401;
-        msg = "Invalid Product ID";
+    if (!id) {
+        const sofaDetails = await Utils.getFurniture(SofaTable)
+        response = sofaDetails
+        status = 200;
     }
-    msg = sofa;
-    res.status(status).send(msg);
+    else {
+        try {
+            const item = await Utils.getItemById(id, SofaTable);
+            status = item.status
+            response = item.msg
+        }
+        catch (e) {
+            response = e.msg
+            status = e.status
+        }
+    }
+    res.status(status).send(response);
 })
 
 module.exports = router;
